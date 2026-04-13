@@ -1,12 +1,35 @@
 # ListasEnlazadasNodeJS
 
-Scaffolding de referencia para migrar la logica de `SinglyLinkedList` y `DoublyLinkedList` desde Java hacia Node.js.
+Este repositorio existe para **migrar paso a paso** lo que se trabaja en Java hacia Node.js.
 
-## Objetivo
+La idea no es empezar desde cero, sino tomar como referencia el proyecto Java
+`ListasEnlazadas` y trasladar su logica a JavaScript para practicar:
 
-- Mantener la misma idea de responsabilidades por clase.
-- Replicar metodos y comportamiento del proyecto Java.
-- Tener ejemplos base para que estudiantes completen o extiendan.
+- sintaxis de Node.js,
+- manejo de clases y objetos,
+- estructura de proyectos,
+- y validacion de comportamiento entre dos lenguajes.
+
+## Relacion con el repositorio Java
+
+Repositorio base (referencia funcional): [wcordova/ListasEnlazada](https://github.com/wcordova/ListasEnlazada)
+
+Flujo recomendado:
+
+1. Implementar o entender un metodo en Java.
+2. Pasar ese mismo metodo a Node.js.
+3. Ejecutar demos y retos en Node.js.
+4. Comparar salida esperada entre ambos proyectos.
+
+El objetivo academico es que el estudiante vea que la **logica de estructuras de datos**
+se mantiene, aunque cambie la sintaxis del lenguaje.
+
+## Objetivo de este scaffold
+
+- Mantener la misma separacion por responsabilidades del proyecto Java.
+- Replicar clases de nodos y listas (`simple` y `doubly`).
+- Probar rapidamente con ejemplos y retos de consola.
+- Dejar retos pendientes para que el estudiante implemente metodos clave.
 
 ## Estructura
 
@@ -28,12 +51,18 @@ src/
     migrationGuideExample.js
 ```
 
-## Ejecutar
+## Ejecutar y probar
 
 ```bash
 npm install
 npm run demo
 ```
+
+El comando ejecuta:
+
+- ejemplos base de lista simple y doble,
+- ejemplo guia de migracion Java -> Node.js,
+- retos pendientes con mensajes `[PENDIENTE]`.
 
 ## Mapa Java -> Node.js
 
@@ -42,13 +71,14 @@ npm run demo
 - `removeFirst()` -> `removeFirst()`
 - `removeLast()` -> `removeLast()`
 - `countOccurrences(T value)` -> `countOccurrences(value)`
+- `clean()` -> `clean()`
 - `reverseInPlace()` -> `reverseInPlace()`
 - `removeDuplicates()` -> `removeDuplicates()`
 
 ## Retos pendientes para estudiantes
 
-En este scaffold, igual que en Java, los metodos de reto quedan con `TODO` y
-`throw new Error(...)` para que el estudiante los implemente:
+Los siguientes metodos quedan intencionalmente con `TODO` y `throw new Error(...)`
+para que sean implementados durante la migracion:
 
 - `SinglyLinkedList.countOccurrences(value)`
 - `SinglyLinkedList.clean()`
@@ -59,12 +89,10 @@ En este scaffold, igual que en Java, los metodos de reto quedan con `TODO` y
 - `DoublyLinkedList.reverseInPlace()`
 - `DoublyLinkedList.removeDuplicates()`
 
-Puedes ejecutar `src/challenges/linkedListChallenges.js` desde `src/index.js` para
-ver qué está pendiente y cuál es el resultado esperado por cada reto.
+## Guia de trabajo sugerida
 
-## Recomendacion didactica
-
-1. Comparar archivo Java vs Node metodo por metodo.
-2. Implementar primero operaciones basicas.
-3. Validar invariantes: `head`, `tail`, `size`.
-4. Resolver retos avanzados sin estructuras auxiliares.
+1. Resolver primero el metodo en Java (`ListasEnlazadas`).
+2. Repetir la implementacion en Node.js (`ListasEnlazadasNodeJS`).
+3. Ejecutar `npm run demo` y validar resultados.
+4. Revisar invariantes despues de cada cambio: `head`, `tail`, `size`.
+5. Documentar diferencias de sintaxis encontradas entre Java y Node.js.
