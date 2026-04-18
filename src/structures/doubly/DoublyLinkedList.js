@@ -75,27 +75,96 @@ class DoublyLinkedList {
   }
 
   countOccurrences(value) {
-    throw new Error(
-      "TODO RETO: Implementar countOccurrences(value) en DoublyLinkedList."
-    );
-  }
+      let count = 0;
+      let current = this.head;
+      while (current !== null) {
+        if (this._isSameValue(current.value, value)) {
+          count++;
+        }
+        current = current.next;
+      }
+      return count;
+    }
 
-  clean() {
-    throw new Error("TODO RETO: Implementar clean() en DoublyLinkedList.");
-  }
+    clean() {
+      let removedCount = this._size;
+      let current = this.head;
 
-  reverseInPlace() {
-    throw new Error(
-      "TODO RETO: Implementar reverseInPlace() en DoublyLinkedList."
-    );
-  }
+      while (current !== null) {
+        let nextNode = current.next;
+        current.next = null;
+        current.previous = null; // Usando 'previous' para compatibilidad
+        current = nextNode;
+      }
 
-  removeDuplicates() {
-    throw new Error(
-      "TODO RETO: Implementar removeDuplicates() en DoublyLinkedList."
-    );
-  }
+      this.head = null;
+      this.tail = null;
+      this._size = 0; // Usando '_size'
 
+      return removedCount;
+    }
+
+    reverseInPlace() {
+      if (this.head === null || this.head.next === null) {
+        return;
+      }
+
+      let current = this.head;
+      let temp = null;
+
+      // Intercambiamos los punteros de cada nodo
+      while (current !== null) {
+        temp = current.previous; 
+        current.previous = current.next;
+        current.next = temp;
+        current = current.previous; // 'previous' ahora apunta al "siguiente" original
+      }
+
+      // Ajustamos cabeza y cola
+      if (temp !== null) {
+        this.tail = this.head;
+        this.head = temp.previous;
+      }
+    }
+
+    removeDuplicates() {
+      if (this.head === null || this._size <= 1) {
+        return 0;
+      }
+
+      let removedCount = 0;
+      let pivot = this.head;
+
+      while (pivot !== null) {
+        let runner = pivot.next;
+
+        while (runner !== null) {
+          if (this._isSameValue(pivot.value, runner.value)) {
+            let toDelete = runner;
+            runner = runner.next;
+
+            // Desconexión lógica de lista doble
+            if (toDelete.next !== null) {
+              toDelete.next.previous = toDelete.previous;
+            } else {
+              this.tail = toDelete.previous;
+            }
+
+            if (toDelete.previous !== null) {
+              toDelete.previous.next = toDelete.next;
+            }
+
+            this._size--; // Usando '_size'
+            removedCount++;
+          } else {
+            runner = runner.next;
+          }
+        }
+        pivot = pivot.next;
+      }
+      return removedCount;
+    }
+  
   size() {
     return this._size;
   }

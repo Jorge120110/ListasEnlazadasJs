@@ -54,26 +54,86 @@ class SinglyLinkedList {
   }
 
   countOccurrences(value) {
-    throw new Error(
-      "TODO RETO: Implementar countOccurrences(value) en SinglyLinkedList."
-    );
-  }
+      let count = 0;
+      let current = this.head;
+      while (current !== null) {
+        if (this._isSameValue(current.value, value)) {
+          count++;
+        }
+        current = current.next;
+      }
+      return count;
+    }
 
-  clean() {
-    throw new Error("TODO RETO: Implementar clean() en SinglyLinkedList.");
-  }
+    clean() {
+      let removedCount = this._size; // Cambiado a _size
+      let current = this.head;
+      
+      while (current !== null) {
+        let nextNode = current.next;
+        current.next = null;
+        current = nextNode;
+      }
+      
+      this.head = null;
+      this.tail = null;
+      this._size = 0; // Cambiado a _size
+      
+      return removedCount;
+    }
 
-  reverseInPlace() {
-    throw new Error(
-      "TODO RETO: Implementar reverseInPlace() en SinglyLinkedList."
-    );
-  }
+    reverseInPlace() {
+      if (this.head === null || this.head.next === null) {
+        return;
+      }
 
-  removeDuplicates() {
-    throw new Error(
-      "TODO RETO: Implementar removeDuplicates() en SinglyLinkedList."
-    );
-  }
+      let previous = null;
+      let current = this.head;
+      let next = null;
+
+      this.tail = this.head;
+
+      while (current !== null) {
+        next = current.next;
+        current.next = previous;
+        previous = current;
+        current = next;
+      }
+
+      this.head = previous;
+    }
+
+    removeDuplicates() {
+      if (this.head === null || this._size <= 1) { // Cambiado a _size
+        return 0;
+      }
+
+      let removedCount = 0;
+      let pivot = this.head;
+
+      while (pivot !== null) {
+        let runner = pivot;
+
+        while (runner.next !== null) {
+          if (this._isSameValue(pivot.value, runner.next.value)) {
+            let duplicate = runner.next;
+            runner.next = duplicate.next;
+
+            if (duplicate === this.tail) {
+              this.tail = runner;
+            }
+
+            this._size--; // Cambiado a _size
+            removedCount++;
+          } else {
+            runner = runner.next;
+          }
+        }
+        pivot = pivot.next;
+      }
+
+      return removedCount;
+    }
 
   size() {
     return this._size;
